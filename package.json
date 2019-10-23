@@ -13,7 +13,7 @@
     "pretest": "eslint ./server --fix",
     "test": "echo \"tests complete\""
   },
-  "author": "Cody Van De Mark",
+  "author": "Sean Koh",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.26.0",

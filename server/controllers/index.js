@@ -11,7 +11,7 @@ const defaultData = {
 };
 
 const defaultDataDog = {
-  name: 'unknown',
+  name: 'Dog unknown',
   breed: 'unknown',
   age: 0,
 };
@@ -93,8 +93,8 @@ const readDog = (req, res) => {
 
     // return success
     return res.json(doc);
-};
-Dog.findByName(name1, callback);
+  };
+  Dog.findByName(name1, callback);
 };
 // function to handle requests to the page1 page
 // controller functions in Express receive the full HTTP request
@@ -305,9 +305,10 @@ const searchDogName = (req, res) => {
     if (!doc) {
       return res.json({ error: 'No dogs found' });
     }
+    lastAddedDog.age++;
 
     // if a match, send the match back
-    return res.json({ name: doc.name, age: doc.age, breed: doc.breed });
+    return res.json({ name: doc.name, age: lastAddedDog.age, breed: doc.breed });
   });
 };
 // function to handle a request to update the last added object
@@ -336,17 +337,6 @@ const updateLast = (req, res) => {
   savePromise.catch((err) => res.json({ err }));
 };
 
-const updateLastDog = (req, res) => {
-  lastAddedDog.age++;
-
-  const savePromise = lastAdded.save();
-
-  // send back the name as a success for now
-  savePromise.then(() => res.json({ name: lastAddedDog.name, age: lastAddedDog.age, breed: lastAddedDog.breed }));
-
-  // if save error, just return an error for now
-  savePromise.catch((err) => res.json({ err }));
-};
 // function to handle a request to any non-real resources (404)
 // controller functions in Express receive the full HTTP request
 // and get a pre-filled out response object to send
@@ -377,7 +367,6 @@ module.exports = {
   getDogName,
   searchDogName,
   updateLast,
-  updateLastDog,
   searchName,
   notFound,
 };
